@@ -8,7 +8,7 @@ public interface SaveData {
 
     void getSaveData();
 
-    void setSaveData();
+    String getSaveFileName();
 
     String getSaveVersion();
 }

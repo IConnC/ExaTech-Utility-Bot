@@ -1,9 +1,9 @@
 package xyz.iconc.dev.ExaTechUtils.data;
 
-public class MasterSave {
+public class SaveManager {
 
 
-    public MasterSave() {
+    public SaveManager() {
 
     }
 
@@ -11,12 +11,12 @@ public class MasterSave {
 
     }
 
-    public boolean saveToFile() {
+    public boolean saveData() {
 
         return false;
     }
 
-    public boolean loadFromFile() {
+    public boolean loadData() {
 
         return false;
     }

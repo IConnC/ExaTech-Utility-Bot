@@ -112,7 +112,7 @@ public class CommandController extends ListenerAdapter {
                     .queueAfter(500,TimeUnit.MILLISECONDS));
 
             // Respond to command sender that the actions were successful
-            event.reply("Successfully posted the vote!").queue();
+            event.reply("Successfully posted the vote!").setEphemeral(true).queue();
         });
 
     }

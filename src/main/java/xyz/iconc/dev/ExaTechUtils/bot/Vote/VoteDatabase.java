@@ -2,6 +2,7 @@ package xyz.iconc.dev.ExaTechUtils.bot.Vote;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import xyz.iconc.dev.ExaTechUtils.data.VoteData;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -47,6 +48,12 @@ public class VoteDatabase {
         return voteCounter - 1;
     }
 
+    public void registerVoteSaveData() {
+        VoteData voteData = new VoteData();
+
+    }
+
+
     public boolean saveToFile() {
         VoteObject[] lightVotes = new VoteObject[votes.size()];
         votes.toArray(lightVotes);
@@ -70,6 +77,10 @@ public class VoteDatabase {
 
         logger.info("Successfully saved votes to file!");
         return true;
+    }
+
+    public List<VoteObject> getVotes() {
+        return votes;
     }
 
 
