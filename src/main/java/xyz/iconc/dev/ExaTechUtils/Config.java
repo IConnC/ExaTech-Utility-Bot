@@ -69,6 +69,8 @@ public class Config implements Serializable {
         }
 
         configObject = gson.fromJson(sb.toString(), ConfigObject.class);
+
+        saveConfig();
     }
 
     private void generateConfig(File configFile) {
@@ -92,8 +94,9 @@ public class Config implements Serializable {
     }
 
 
-    static class ConfigObject {
+    public class ConfigObject {
         private String API_TOKEN = "";
+        private long GUILD_ID = 0L;
 
         protected ConfigObject() {
 
@@ -101,6 +104,10 @@ public class Config implements Serializable {
 
         public String getAPI_TOKEN() {
             return API_TOKEN;
+        }
+
+        public long getGUILD_ID() {
+            return GUILD_ID;
         }
     }
 

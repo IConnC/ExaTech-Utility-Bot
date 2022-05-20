@@ -11,16 +11,23 @@ import java.util.Scanner;
 public class Controller {
     private static Logger logger = LoggerFactory.getLogger(Controller.class);
 
+    private static Config.ConfigObject configObject;
     public static SaveManager saveManager;
 
     public static void main(String[] args) {
         Bot bot = new Bot();
         Config config = new Config();
+        config.loadConfig();
+
+        configObject = config.getConfigObject();
 
         saveManager = new SaveManager();
 
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> saveManager.saveData()));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            config.saveConfig();
+            saveManager.saveData();
+        }));
 
 
         Scanner scanner = new Scanner(System.in);
@@ -36,10 +43,9 @@ public class Controller {
         thread.start();
 
 
-        config.loadConfig();
 
         try {
-            bot.initializeBot(config.getConfigObject().getAPI_TOKEN());
+            bot.initializeBot(configObject.getAPI_TOKEN());
         } catch (LoginException e) {
             logger.error(e.toString());
         }
@@ -47,5 +53,10 @@ public class Controller {
 
     public static void ExitApplication(int status) {
         Runtime.getRuntime().exit(status);
+    }
+
+
+    public static Config.ConfigObject getConfigObject() {
+        return configObject;
     }
 }

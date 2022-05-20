@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import xyz.iconc.dev.ExaTechUtils.Controller;
 import xyz.iconc.dev.ExaTechUtils.bot.Music.AudioController;
 import xyz.iconc.dev.ExaTechUtils.bot.Vote.VoteDatabase;
 import xyz.iconc.dev.ExaTechUtils.bot.Vote.VoteObject;
@@ -118,8 +119,10 @@ public class CommandController extends ListenerAdapter {
     }
 
     private static void banAll(SlashCommandInteractionEvent event) {
-        event.reply("BANNING ALL " + Bot.getBot().getJDA().getGuildById(956760321618493441L).getMemberCount()
+        event.reply("BANNING ALL " + Bot.getBot().getJDA()
+                .getGuildById(Controller.getConfigObject().getGUILD_ID()).getMemberCount()
                 + " PLAYERS MOMENTARILY...").queue();
+
         event.getUser().openPrivateChannel().queue((privateChannel -> {
             privateChannel.
                     sendMessage("Why u try to ban everyone :(" + "\nWhy u griief?\n" +
