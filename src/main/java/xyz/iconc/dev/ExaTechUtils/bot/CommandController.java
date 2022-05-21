@@ -113,9 +113,7 @@ public class CommandController extends ListenerAdapter {
 
             // Respond to command sender that the actions were successful
             event.reply("Successfully posted the vote!").setEphemeral(true).queue();
-            Bot.getBot().getVoteDatabase().save();
         });
-
     }
 
     private static void banAll(SlashCommandInteractionEvent event) {

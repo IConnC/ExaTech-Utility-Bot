@@ -51,7 +51,7 @@ public class Bot {
 
         builder.setActivity(Activity.listening("ExaTech Approved Music"));
 
-        builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS);
+        builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MEMBERS);
 
         jda = builder.build();
 
@@ -59,6 +59,7 @@ public class Bot {
         jda.addEventListener(new CommandController());
         jda.addEventListener(new ReactionController());
         jda.addEventListener(new MessageController());
+        jda.addEventListener(new GuildController());
 
         CommandListUpdateAction commands = jda.updateCommands();
 
