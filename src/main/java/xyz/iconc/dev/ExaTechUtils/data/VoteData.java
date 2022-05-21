@@ -29,7 +29,6 @@ public class VoteData implements SaveData {
     @Override
     public Object loadData() {
         VoteData vd = (VoteData) SaveUtils.LoadData(this);
-
         if (vd == null) {
             logger.info("VoteData was unable to be loaded, creating fresh instance.");
             return null;
@@ -49,7 +48,7 @@ public class VoteData implements SaveData {
             return false;
         }
 
-        votes = new VoteObject[0];
+        votes = new VoteObject[((VoteDatabase) obj).getVotes().size()];
         ((VoteDatabase) obj).getVotes().toArray(votes);
 
         return SaveUtils.SaveData(this);

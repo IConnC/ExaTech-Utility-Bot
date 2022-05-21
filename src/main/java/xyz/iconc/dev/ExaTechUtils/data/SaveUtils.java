@@ -66,8 +66,8 @@ public class SaveUtils {
             logger.error(e.toString());
             return null;
         }
-        gson.fromJson(sb.toString(), saveData.getSaveClass());
+        loadedSaveData = gson.fromJson(sb.toString(), saveData.getSaveClass());
 
-        return saveData;
+        return loadedSaveData;
     }
 }

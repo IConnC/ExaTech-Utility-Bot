@@ -106,11 +106,14 @@ public class CommandController extends ListenerAdapter {
 
 
             // Mentions role then deletes mention
-            message.getChannel().sendMessage(finalRoleMention.getAsMention()).queue((mentionMessage)->mentionMessage.delete()
-                    .queueAfter(500,TimeUnit.MILLISECONDS));
+            if (finalRoleMention != null) {
+                message.getChannel().sendMessage(finalRoleMention.getAsMention()).queue((mentionMessage)->mentionMessage.delete()
+                        .queueAfter(500,TimeUnit.MILLISECONDS));
+            }
 
             // Respond to command sender that the actions were successful
             event.reply("Successfully posted the vote!").setEphemeral(true).queue();
+            Bot.getBot().getVoteDatabase().save();
         });
 
     }
