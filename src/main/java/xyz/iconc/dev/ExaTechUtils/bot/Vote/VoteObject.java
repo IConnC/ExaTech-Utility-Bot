@@ -12,12 +12,11 @@ public class VoteObject implements Serializable {
 
     private int voteNumber;
 
-    public VoteObject(String voteName, String voteDescription, long messageIdentifier, long requiredRole, int voteNumber) {
+    public VoteObject(String voteName, String voteDescription, long messageIdentifier, long requiredRole) {
         this.voteName = voteName;
         this.voteDescription = voteDescription;
         this.messageIdentifier = messageIdentifier;
         this.requiredRole = requiredRole;
-        this.voteNumber = voteNumber;
     }
 
 
@@ -37,9 +36,6 @@ public class VoteObject implements Serializable {
         return requiredRole;
     }
 
-    public long getVoteNumber() {
-        return voteNumber;
-    }
 
     @Override
     public String toString() {

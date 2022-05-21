@@ -2,6 +2,7 @@ package xyz.iconc.dev.ExaTechUtils.bot.Vote;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import xyz.iconc.dev.ExaTechUtils.Controller;
 import xyz.iconc.dev.ExaTechUtils.data.VoteData;
 
 import java.io.*;
@@ -15,11 +16,13 @@ public class VoteDatabase {
 
     private List<VoteObject> votes;
 
-    private int voteCounter;
+    private VoteData voteData;
+
 
     public VoteDatabase() {
         votes = new ArrayList<>();
-        voteCounter = 1;
+
+        voteData = new VoteData();
     }
 
     public void addVote(VoteObject voteObject) {
@@ -43,84 +46,44 @@ public class VoteDatabase {
         return false;
     }
 
-    public int getVoteCounter() {
-        voteCounter++;
-        return voteCounter - 1;
-    }
-
-    public void registerVoteSaveData() {
-        VoteData voteData = new VoteData();
-
-    }
-
-
-    public boolean saveToFile() {
-        VoteObject[] lightVotes = new VoteObject[votes.size()];
-        votes.toArray(lightVotes);
-
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(VOTE_DATABASE_FILENAME);
-
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-
-            objectOutputStream.writeObject(lightVotes);
-
-            objectOutputStream.close();
-
-            fileOutputStream.close();
-
-        } catch (IOException e) {
-            logger.error("ERROR SAVING VOTES TO FILE:");
-            logger.error(e.toString());
-            return false;
-        }
-
-        logger.info("Successfully saved votes to file!");
-        return true;
-    }
-
     public List<VoteObject> getVotes() {
         return votes;
     }
 
 
-    public boolean loadFromFile() {
-        VoteObject[] lightVotes;
+    public void save() {
+        logger.info("Saving Vote Data...");
 
-        if (!new File(VOTE_DATABASE_FILENAME).exists()) {
-            return false;
+        if (!voteData.saveData(this)) {
+            logger.error("Vote Data was unable to be saved!");
+            return;
         }
-
-        try {
-            FileInputStream fileInputStream = new FileInputStream(VOTE_DATABASE_FILENAME);
-
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-
-            lightVotes = (VoteObject[]) objectInputStream.readObject();
-
-            objectInputStream.close();
-
-            fileInputStream.close();
-
-        } catch (IOException | ClassNotFoundException e) {
-            logger.error("ERROR LOADING VOTES:");
-            logger.error(e.toString());
-            return false;
-        }
-
-        votes.addAll(Arrays.asList(lightVotes));
-
-        voteCounter = votes.size();
-
-        logger.info("Successfully loaded votes from file!");
-        return true;
+        logger.info("Vote Data Saved!");
     }
+
+    public void load() {
+        logger.info("Loading Vote data...");
+
+        VoteData vd = (VoteData) voteData.loadData();
+
+
+        if (vd == null) {
+            return;
+        }
+
+        this.votes = vd.getVoteObjects();
+
+        logger.info("Vote data successfully loaded!");
+    }
+
+
+
 
     public static void main(String[] args) {
         VoteDatabase voteDatabase = new VoteDatabase();
 
         //voteDatabase.saveToFile();
-        voteDatabase.loadFromFile();
+        //voteDatabase.loadFromFile();
     }
 
 }

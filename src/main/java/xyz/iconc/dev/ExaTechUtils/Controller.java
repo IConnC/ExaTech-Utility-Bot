@@ -3,7 +3,7 @@ package xyz.iconc.dev.ExaTechUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xyz.iconc.dev.ExaTechUtils.bot.Bot;
-import xyz.iconc.dev.ExaTechUtils.data.SaveManager;
+import xyz.iconc.dev.ExaTechUtils.data.SaveUtils;
 
 import javax.security.auth.login.LoginException;
 import java.util.Scanner;
@@ -12,7 +12,6 @@ public class Controller {
     private static Logger logger = LoggerFactory.getLogger(Controller.class);
 
     private static Config.ConfigObject configObject;
-    public static SaveManager saveManager;
 
     public static void main(String[] args) {
         Bot bot = new Bot();
@@ -21,12 +20,10 @@ public class Controller {
 
         configObject = config.getConfigObject();
 
-        saveManager = new SaveManager();
 
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             config.saveConfig();
-            saveManager.saveData();
         }));
 
 

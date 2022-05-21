@@ -79,7 +79,6 @@ public class CommandController extends ListenerAdapter {
         assert channel != null;
 
 
-        int voteNumber = Bot.getBot().getVoteDatabase().getVoteCounter();
 
         // Build the embed
 
@@ -88,7 +87,6 @@ public class CommandController extends ListenerAdapter {
 
         builder.setTitle(title);
         builder.setDescription(descriptionBuilder.toString());
-        builder.setFooter("Vote #" + voteNumber);
         builder.setColor(Color.BLUE);
 
         // Send the embed
@@ -98,8 +96,7 @@ public class CommandController extends ListenerAdapter {
         channel.sendMessageEmbeds(builder.build()).queue((message) -> {
             // Create vote object
             VoteObject voteObject = new VoteObject(title, descriptionBuilder.toString(),
-                    message.getIdLong(), finalRoleRequired == null ? 0L : finalRoleRequired.getIdLong(),
-                    voteNumber);
+                    message.getIdLong(), finalRoleRequired == null ? 0L : finalRoleRequired.getIdLong());
 
             // Add vote object to DB
             Bot.getBot().getVoteDatabase().addVote(voteObject);

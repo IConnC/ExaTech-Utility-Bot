@@ -25,11 +25,17 @@ public class Bot {
 
 
     public Bot() {
+        // Initialize each module
         voteDatabase = new VoteDatabase();
-        voteDatabase.loadFromFile();
 
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> voteDatabase.saveToFile()));
+        // Load module data
+        voteDatabase.load();
+
+
+
+        // Define shutdown behavior of modules
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> voteDatabase.save()));
         bot = this;
     }
 

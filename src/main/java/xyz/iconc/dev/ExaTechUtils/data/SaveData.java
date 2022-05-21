@@ -4,11 +4,14 @@ public interface SaveData {
     String DATA_VERSION = null;
 
 
-    void gatherData();
+    Object loadData();
 
-    void getSaveData();
+    boolean saveData(Object obj);
 
     String getSaveFileName();
 
     String getSaveVersion();
+
+    Class<? extends SaveData> getSaveClass();
+
 }
