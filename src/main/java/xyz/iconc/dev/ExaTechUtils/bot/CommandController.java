@@ -15,6 +15,7 @@ import xyz.iconc.dev.ExaTechUtils.bot.Vote.VoteDatabase;
 import xyz.iconc.dev.ExaTechUtils.bot.Vote.VoteObject;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 
@@ -84,10 +85,18 @@ public class CommandController extends ListenerAdapter {
 
         EmbedBuilder builder = new EmbedBuilder();
 
-
+        // Set embed title
         builder.setTitle(title);
-        builder.setDescription(descriptionBuilder.toString());
+
+        String[] splitDescription = descriptionBuilder.toString().split("\\\\n");
+        builder.setDescription(splitDescription[0]);
+        for (int i=1; i<splitDescription.length; i++) {
+            builder.appendDescription("\n" + splitDescription[i]);
+        }
+
+        // Set embed color
         builder.setColor(Color.BLUE);
+
 
         // Send the embed
 
@@ -121,12 +130,10 @@ public class CommandController extends ListenerAdapter {
                 .getGuildById(Controller.getConfigObject().getGUILD_ID()).getMemberCount()
                 + " PLAYERS MOMENTARILY...").queue();
 
-        event.getUser().openPrivateChannel().queue((privateChannel -> {
-            privateChannel.
-                    sendMessage("Why u try to ban everyone :(" + "\nWhy u griief?\n" +
-                            "\nRejoin here numbnutz: https://discord.com/invite/CATykhxCdG")
-                    .queue((e) -> event.getMember().kick("GRIEFER ALERTTTTTTT").queue());
-        }));
+        event.getUser().openPrivateChannel().queue((privateChannel -> privateChannel.
+                sendMessage("Why u try to ban everyone :(" + "\nWhy u griief?\n" +
+                        "\nRejoin here numbnutz: https://discord.com/invite/CATykhxCdG")
+                .queue((e) -> event.getMember().kick("GRIEFER ALERTTTTTTT").queue())));
     }
 
     private static void tralala(SlashCommandInteractionEvent event) {

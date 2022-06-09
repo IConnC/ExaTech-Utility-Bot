@@ -10,8 +10,6 @@ public class VoteObject implements Serializable {
 
     private long requiredRole;
 
-    private int voteNumber;
-
     public VoteObject(String voteName, String voteDescription, long messageIdentifier, long requiredRole) {
         this.voteName = voteName;
         this.voteDescription = voteDescription;
